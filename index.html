@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Sayaeed Arash</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d0d0d;
+            margin: 0;
+            padding: 0;
+            color: #f0f8ff;
+            overflow: hidden; /* Prevent page scrollbars */
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1; /* Ensure the container is above falling text */
+        }
+        .box {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            width: 80%;
+            max-width: 700px;
+            height: auto;
+            position: relative;
+            z-index: 1; /* Ensure boxes are above falling text */
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        h2 {
+            color: #2196F3;
+        }
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .quotes {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid #2196F3;
+            max-height: 50vh;
+            overflow-y: auto;
+        }
+        .quote {
+            font-style: italic;
+            margin: 10px 0;
+        }
+        .quote-author {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0; /* Ensure Matrix effect is behind content */
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    <div class="container">
+        <div class="box">
+            <h1>HEY THIS IS sayaeedarash</h1>
+            <p>THIS PAGE WAS BUILT WIHT HELP OF ai FOR FUN AND FREE.</p>
+        </div>
+        <div class="box">
+            <h2>Quotes</h2>
+            <div class="quotes">
+                <div class="quote">
+                    <p>"The best way to show gratitude to Allah for His blessings is to use them in His service." - <span class="quote-author">Prophet Muhammad (PBUH)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"The stronger is not the good wrestler. The stronger is only he who controls himself when he is angry." - <span class="quote-author">Prophet Muhammad (PBUH)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"Speak a good word or remain silent." - <span class="quote-author">Abu Bakr (RA)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"Whosoever shows you your faults, he is your friend. He who pays you lip service and pretends to be your friend is your executioner." - <span class="quote-author">Umar ibn al-Khattab (RA)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"Do not be ashamed to give little for that is only a sign of modesty." - <span class="quote-author">Uthman ibn Affan (RA)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"Do not be a slave to others when Allah has created you free." - <span class="quote-author">Ibn Qayyim</span></p>
+                </div>
+                <div class="quote">
+                    <p>"To love for your brother what you love for yourself." - <span class="quote-author">Prophet Muhammad (PBUH)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"Actions are judged by intentions." - <span class="quote-author">Prophet Muhammad (PBUH)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"The best of people are those that bring the most benefit to the rest of mankind." - <span class="quote-author">Prophet Muhammad (PBUH)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"He who has no forbearance has nothing." - <span class="quote-author">Prophet Muhammad (PBUH)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"The best of people are those who are most beneficial to people." - <span class="quote-author">Prophet Muhammad (PBUH)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"The most complete believers are those who have the best character." - <span class="quote-author">Prophet Muhammad (PBUH)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"The reward of deeds depends upon the intentions." - <span class="quote-author">Prophet Muhammad (PBUH)</span></p>
+                </div>
+                <div class="quote">
+                    <p>"The most merciful of people are those who are merciful to others." - <span class="quote-author">Prophet Muhammad (PBUH)</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const columns = Math.floor(canvas.width / 20); // Number of columns for the rain
+        const drops = Array(columns).fill(0);
+
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        const charArray = chars.split('');
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Fading effect
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00ff00'; // Color of the characters
+            ctx.font = '15px monospace';
+
+            drops.forEach((y, index) => {
+                const text = charArray[Math.floor(Math.random() * charArray.length)];
+                ctx.fillText(text, index * 20, y * 20);
+
+                // Reset drop position if it falls beyond the canvas
+                if (y * 20 > canvas.height && Math.random() > 0.975) {
+                    drops[index] = 0;
+                }
+
+                drops[index]++;
+            });
+        }
+
+        // Start the effect immediately
+        setInterval(drawMatrix, 50);
+
+        // Adjust canvas size on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            // Recalculate drops for new canvas width
+            const columns = Math.floor(canvas.width / 20);
+            drops.length = columns;
+            for (let i = drops.length; i < columns; i++) {
+                drops.push(0);
+            }
+        });
+    </script>
+</body>
+</html>
